@@ -1,5 +1,4 @@
-const PLAY=1;
-const END=0;
+const PLAY=1; const END=0;
 
 function preload() {
   trex_running = loadAnimation("trex1.png", "trex3.png", "trex4.png");
@@ -123,9 +122,10 @@ function draw() {
       background("darkgrey");
     }
     trex.velocityY=trex.velocityY+0.8;
-    if (keyDown("SPACE") && trex.y>150) {
+    if ((keyDown("SPACE") || touches.length>0) && trex.isTouching(dummy_ground)) {
       trex.velocityY=-12;
       sfx_jump.play();
+      touches=[]
     }
     if (ground.x<0) {
       ground.x = ground.width/2;
@@ -164,17 +164,3 @@ function draw() {
   drawSprites();
   text("Score: "+score, 500, 30);
 }
-
-/*img.loadPixels();
-for (let y = 0; y < img.height; y++) {
-  for (let x = 0; x < img.width; x++) {
-    const index = (y * img.width + x) * 4;
-    const r = img.pixels[index + 0];
-    const g = img.pixels[index + 1];
-    const b = img.pixels[index + 2];
-    img.pixels[index + 0] = 255 - r;
-    img.pixels[index + 1] = 255 - g;
-    img.pixels[index + 2] = 255 - b;
-  }
-}
-img.updatePixels();*/
